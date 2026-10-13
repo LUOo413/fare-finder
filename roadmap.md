@@ -1,4 +1,4 @@
 # Flight Price Notifier v1
-- [ ] Build bilingual dark landing page with exactly three features.
-- [ ] Add email signup, signin, signout and protected /app placeholder.
-- [ ] Verify account flow and mobile presentation.
+- [x] Build bilingual dark landing page with exactly three features.
+- [x] Add email signup, signin, signout and protected /app placeholder.
+- [x] Verify account flow and mobile presentation.

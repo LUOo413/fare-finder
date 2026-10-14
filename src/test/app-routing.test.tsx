@@ -1,25 +1,24 @@
-import { QueryClient } from "@tanstack/react-query";
-import { createRouter, rootRouteId } from "@tanstack/react-router";
+import { matchRoutes } from "react-router";
 import { describe, expect, it } from "vitest";
+import { routes } from "@/router";
 
-import { routeTree } from "@/routeTree.gen";
-
-// Match routes without running loaders or rendering: loaders may need a server or
-// network the test run lacks, and jsdom never loads the stylesheets React waits on.
+// Match routes without rendering: pages may need a network the test run lacks.
 describe("App routing", () => {
   it.each([
-    ['/auth', '/auth'],
-    ['/signup', '/signup'],
-    ['/app', '/_authenticated/app'],
-  ])('matches %s to its intended page', (path, routeId) => {
-    const router = createRouter({ routeTree, context: { queryClient: new QueryClient() } });
-    expect(router.matchRoutes(path).at(-1)?.routeId).toBe(routeId);
+    ["/", "home"],
+    ["/auth", "sign-in"],
+    ["/signup", "sign-up"],
+    ["/app", "app"],
+  ])("matches %s to its intended page", (path, routeId) => {
+    expect(matchRoutes(routes, path)?.at(-1)?.route.id).toBe(routeId);
   });
-  it("matches a page for / instead of falling back to not found", () => {
-    const router = createRouter({ routeTree, context: { queryClient: new QueryClient() } });
 
-    const matches = router.matchRoutes("/");
+  it("puts /app behind the auth guard", () => {
+    const ids = matchRoutes(routes, "/app")?.map((m) => m.route.id);
+    expect(ids).toEqual(["root", "authenticated", "app"]);
+  });
 
-    expect(matches.at(-1)?.routeId).not.toBe(rootRouteId);
+  it("falls back to not found for unknown paths", () => {
+    expect(matchRoutes(routes, "/nope")?.at(-1)?.route.id).toBe("not-found");
   });
 });

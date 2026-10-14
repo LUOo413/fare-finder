@@ -1,5 +1,5 @@
 import { useEffect, useState, type FormEvent } from 'react';
-import { Link, useNavigate } from '@tanstack/react-router';
+import { Link, useNavigate } from 'react-router';
 import { ArrowRight, Eye, EyeOff, Plane } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -16,7 +16,7 @@ export function AuthForm({ mode }: { mode: 'signin' | 'signup' }) {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
-  useEffect(() => { if (user) void navigate({ to: '/app', replace: true }); }, [user, navigate]);
+  useEffect(() => { if (user) void navigate('/app', { replace: true }); }, [user, navigate]);
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault(); setBusy(true); setError(''); setMessage('');
     try {
@@ -27,7 +27,7 @@ export function AuthForm({ mode }: { mode: 'signin' | 'signup' }) {
       if (!result.data.session) { setMessage('請查看你的 email 並確認帳號。 Check your email to confirm your account.'); return; }
       const { data, error: verificationError } = await supabase.auth.getUser();
       if (verificationError || !data.user) { setError('Unable to verify your account. Please try again.'); return; }
-      await navigate({ to: '/app', replace: true });
+      await navigate('/app', { replace: true });
     } catch { setError('Unable to connect. Please try again.'); }
     finally { setBusy(false); }
   }

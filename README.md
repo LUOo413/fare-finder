@@ -51,3 +51,16 @@ cd <repository-name>
 npm i
 npm run dev
 ```
+
+## Build and deploy (Vercel)
+
+This is a plain Vite + React single-page app with client-side routing (React Router). There is no server-side rendering.
+
+```sh
+npm run build    # static output in dist/
+npm run preview  # serve dist/ locally
+```
+
+- Routes: `/` (landing), `/auth` (sign in), `/signup` (sign up), `/app` (signed-in users only).
+- `vercel.json` sets the output directory to `dist` and rewrites every path to `/index.html`, so deep links such as `/app` load the SPA and resolve in the browser.
+- Required build-time env vars: `VITE_SUPABASE_URL` and `VITE_SUPABASE_PUBLISHABLE_KEY` (read from `.env` or the Vercel project settings).

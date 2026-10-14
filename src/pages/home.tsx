@@ -1,14 +1,11 @@
-import { createFileRoute, Link } from '@tanstack/react-router';
+import { Link } from 'react-router';
 import { ArrowRight, Radar, Mail, CircleCheck, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuthState } from '@/components/AuthProvider';
-import { pageMeta } from '@/lib/page-meta';
+import { pageMeta, usePageMeta } from '@/lib/page-meta';
 import flightHero from '@/assets/flight-hero.jpg';
 
-export const Route = createFileRoute('/')({
-  head: () => pageMeta('機票降價通知', '設定航線與目標價，機票降價就通知你。 Set a route and a target price — we email you when the fare drops.'),
-  component: Index,
-});
+const meta = pageMeta('機票降價通知', '設定航線與目標價，機票降價就通知你。 Set a route and a target price — we email you when the fare drops.');
 
 const features = [
   { icon: Radar, title: '盯緊熱門航線', english: 'Always-on route watching', description: '持續監控台北出發的熱門航線（東京、首爾），自動抓最低票價。' },
@@ -16,7 +13,8 @@ const features = [
   { icon: CircleCheck, title: '隨時取消', english: 'Cancel anytime', description: '月訂閱制，不想用隨時停，沒有綁約。' },
 ];
 
-function Index() {
+export function Home() {
+  usePageMeta(meta);
   const { user } = useAuthState();
   return <main>
     <section className="hero">

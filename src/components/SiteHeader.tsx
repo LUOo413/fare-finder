@@ -1,4 +1,4 @@
-import { Link, useNavigate } from '@tanstack/react-router';
+import { Link, useNavigate } from 'react-router';
 import { useQueryClient } from '@tanstack/react-query';
 import { Plane, ArrowUpRight, LogOut } from 'lucide-react';
 import { useState } from 'react';
@@ -18,7 +18,7 @@ export function SiteHeader() {
     queryClient.clear();
     const { error } = await supabase.auth.signOut();
     if (error) { setError('Sign out failed. Please try again.'); setBusy(false); return; }
-    await navigate({ to: '/auth', replace: true });
+    await navigate('/auth', { replace: true });
     setBusy(false);
   }
   return <header className="site-header site-width">

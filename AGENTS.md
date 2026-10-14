@@ -10,7 +10,7 @@
 <!-- LOVABLE:END -->
 
 ## Architecture
-- Authentication is the only Cloud usage; never create custom tables, RPCs or application-data queries, because later flight data belongs in AWS DynamoDB behind Lambdas.
+- Supabase (the user's own project, configured via VITE_SUPABASE_URL and VITE_SUPABASE_PUBLISHABLE_KEY) is used for authentication only; never create custom tables, RPCs or application-data queries, because later flight data belongs in AWS DynamoDB behind Lambdas.
 - The app is a static Vite + React Router SPA (no SSR). Routes are defined in src/router.tsx: public pages at /, /auth and /signup; /app sits behind the RequireAuth guard. vercel.json rewrites every path to index.html so deep links resolve client-side.
 - AuthProvider owns the single auth state listener and identity invalidation; use it for session-aware navigation to avoid competing subscriptions.
 - Reusable feature component filenames use PascalCase; route and generated UI filenames follow their framework conventions for compatibility.

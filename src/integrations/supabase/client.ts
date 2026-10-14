@@ -1,7 +1,7 @@
-// Browser Supabase client for the static SPA (auth only).
+// Browser Supabase client for the static SPA (auth only), pointed at the
+// project's own Supabase project via VITE_SUPABASE_URL / VITE_SUPABASE_PUBLISHABLE_KEY.
 import { createClient } from '@supabase/supabase-js';
 import type { Database } from './types';
-import { brokeredPreviewStorage } from './previewAuthStorage';
 
 function isNewSupabaseApiKey(value: string): boolean {
   return value.startsWith('sb_publishable_') || value.startsWith('sb_secret_');
@@ -47,7 +47,7 @@ function createSupabaseClient() {
       fetch: createSupabaseFetch(SUPABASE_PUBLISHABLE_KEY),
     },
     auth: {
-      storage: brokeredPreviewStorage(),
+      // Sessions persist in the browser's localStorage (supabase-js default).
       persistSession: true,
       autoRefreshToken: true,
     },
@@ -56,7 +56,7 @@ function createSupabaseClient() {
 
 let _supabase: ReturnType<typeof createSupabaseClient> | undefined;
 
-// Import the supabase client like this:
+// Single shared client, created lazily on first use. Import it like this:
 // import { supabase } from "@/integrations/supabase/client";
 export const supabase = new Proxy({} as ReturnType<typeof createSupabaseClient>, {
   get(_, prop, receiver) {

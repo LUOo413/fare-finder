@@ -241,6 +241,19 @@
 .coming-soon .feature-icon { width: 64px; height: 64px; margin-bottom: 26px; }
 .coming-soon h2 { max-width: 610px; font-size: 21px; font-weight: 500; line-height: 1.9; }
 .coming-soon p { color: var(--muted-foreground); font-size: 14px; line-height: 1.9; max-width: 440px; }
+.plans-intro { color: var(--muted-foreground); font-size: 14px; line-height: 1.9; margin: 0 0 30px; }
+.plans-intro span { font-size: 12px; }
+.plan-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.plan-card h3 { font-size: 22px; }
+.plan-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 500; color: var(--accent-foreground); background: var(--accent); border: 1px solid color-mix(in oklch, var(--accent-foreground) 35%, transparent); border-radius: 999px; padding: 4px 10px; }
+.plan-target { font-size: 14px; margin: 0 0 8px; }
+.plan-target strong { font-size: 20px; margin-left: 6px; }
+.plan-card .description { margin-bottom: 16px; }
+.plan-form { display: flex; flex-direction: column; gap: 9px; }
+.plan-form label { font-size: 12px; font-weight: 500; }
+.plan-form input { background: color-mix(in oklch, var(--background) 55%, transparent); }
+.plan-form .description { margin: 0 0 6px; }
+.plan-actions { display: flex; gap: 8px; }
 .fade-in { animation: fade-in 900ms ease-out both; }
 @keyframes fade-in { from { opacity: 0; transform: translateY(14px); filter: blur(4px); } to { opacity: 1; transform: translateY(0); filter: blur(0); } }
 @keyframes hero-breathe { from { transform: scale(1.04); } to { transform: scale(1.1) translateY(-6px); } }
@@ -270,5 +283,6 @@
   .site-footer { font-size: 10px; flex-wrap: wrap; }
   .shell-main { padding-top: 40px; }
   .coming-soon { padding: 50px 20px 40px; }
+  .plan-grid { grid-template-columns: 1fr; }
 }
 @media (prefers-reduced-motion: reduce) { .fade-in, .hero-image, body::before { animation: none; } .feature-card { transition: none; } }

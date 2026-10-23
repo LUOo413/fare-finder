@@ -4,7 +4,7 @@ const API_URL = (
   import.meta.env.VITE_FLIGHT_API_URL ?? "https://hyyhuk76jc.execute-api.us-east-1.amazonaws.com"
 ).replace(/\/$/, "");
 
-export type PlanName = "tokyo" | "seoul";
+export type PlanName = "tokyo" | "seoul" | "london";
 
 export type Subscription = {
   email: string;
@@ -24,6 +24,13 @@ export const PLANS: {
 }[] = [
   { name: "tokyo", title: "台北 ✈ 東京", english: "Taipei → Tokyo", route: "TPE-TYO", hint: 9325 },
   { name: "seoul", title: "台北 ✈ 首爾", english: "Taipei → Seoul", route: "TPE-SEL", hint: 5989 },
+  {
+    name: "london",
+    title: "台北 ✈ 倫敦",
+    english: "Taipei → London",
+    route: "TPE-LON",
+    hint: 30443,
+  },
 ];
 
 async function readJson(res: Response) {

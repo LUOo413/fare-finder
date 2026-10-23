@@ -48,6 +48,25 @@ def scan_route(route):
         kw["ExclusiveStartKey"] = page["LastEvaluatedKey"]
 
 
+def paid(it, now_s):
+    """Paywall gate: serve active rows and cancelled rows still inside their paid period."""
+    status, end = it.get("subscription_status"), it.get("current_period_end", "")
+    if status == "active":
+        return True
+    if status == "cancelled":
+        if end >= now_s:
+            print("gate: cancelled, in grace until", end, it["email"])
+            return True
+        _tbl.update_item(Key={"email": it["email"], "route": it["route"]},
+                         UpdateExpression="SET subscription_status=:x",
+                         ConditionExpression="subscription_status = :c",
+                         ExpressionAttributeValues={":x": "expired", ":c": "cancelled"})
+        print("gate: cancelled and period ended", end, "-> expired", it["email"])
+        return False
+    print("gate: skip", status or "no status (unpaid M1 row)", it["email"])
+    return False
+
+
 def handler(event, context):
     global QURL
     origin, destination = event["origin"], event["destination"]
@@ -66,7 +85,10 @@ def handler(event, context):
     if QURL is None:
         QURL = _sqs.get_queue_url(QueueName="flight-fare-queue")["QueueUrl"]
     matched = 0
+    now_s = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     for it in scan_route(route):
+        if not paid(it, now_s):
+            continue
         tp = it.get("target_price")
         if tp is None or Decimal(tp) < Decimal(str(tw["price"])):
             continue

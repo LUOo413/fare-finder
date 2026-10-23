@@ -254,6 +254,12 @@
 .plan-form input { background: color-mix(in oklch, var(--background) 55%, transparent); }
 .plan-form .description { margin: 0 0 6px; }
 .plan-actions { display: flex; gap: 8px; }
+.plan-actions { flex-wrap: wrap; }
+.plan-badge-warn { color: var(--destructive); background: color-mix(in oklch, var(--destructive) 10%, transparent); border-color: color-mix(in oklch, var(--destructive) 35%, transparent); }
+.plan-badge-muted { color: var(--muted-foreground); background: var(--muted); border-color: var(--border); }
+.plan-confirm .description { margin-bottom: 8px; }
+.purchase-notice { margin: 0 0 20px; padding: 12px 16px; border-radius: 10px; font-size: 14px; background: var(--accent); color: var(--accent-foreground); border: 1px solid color-mix(in oklch, var(--accent-foreground) 30%, transparent); }
+.purchase-notice-error { background: color-mix(in oklch, var(--destructive) 10%, transparent); color: var(--destructive); border-color: color-mix(in oklch, var(--destructive) 35%, transparent); }
 .fade-in { animation: fade-in 900ms ease-out both; }
 @keyframes fade-in { from { opacity: 0; transform: translateY(14px); filter: blur(4px); } to { opacity: 1; transform: translateY(0); filter: blur(0); } }
 @keyframes hero-breathe { from { transform: scale(1.04); } to { transform: scale(1.1) translateY(-6px); } }

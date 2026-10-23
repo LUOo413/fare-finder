@@ -243,7 +243,7 @@
 .coming-soon p { color: var(--muted-foreground); font-size: 14px; line-height: 1.9; max-width: 440px; }
 .plans-intro { color: var(--muted-foreground); font-size: 14px; line-height: 1.9; margin: 0 0 30px; }
 .plans-intro span { font-size: 12px; }
-.plan-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.plan-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
 .plan-card h3 { font-size: 22px; }
 .plan-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 500; color: var(--accent-foreground); background: var(--accent); border: 1px solid color-mix(in oklch, var(--accent-foreground) 35%, transparent); border-radius: 999px; padding: 4px 10px; }
 .plan-target { font-size: 14px; margin: 0 0 8px; }

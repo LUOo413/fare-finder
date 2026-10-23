@@ -15,7 +15,7 @@ const features = [
     icon: Radar,
     title: "盯緊熱門航線",
     english: "Always-on route watching",
-    description: "持續監控台北出發的熱門航線（東京、首爾），自動抓最低票價。",
+    description: "持續監控台北出發的熱門航線（東京、首爾、倫敦），自動抓最低票價。",
   },
   {
     icon: Mail,

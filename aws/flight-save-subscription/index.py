@@ -1,7 +1,7 @@
 import boto3, json, base64, re
 from datetime import datetime, timezone
 from decimal import Decimal
-PLANS = {"tokyo": {"origin": "TPE", "destination": "TYO"}, "seoul": {"origin": "TPE", "destination": "SEL"}}
+PLANS = {"tokyo": {"origin": "TPE", "destination": "TYO"}, "seoul": {"origin": "TPE", "destination": "SEL"}, "london": {"origin": "TPE", "destination": "LON"}}
 ddb = boto3.resource("dynamodb").Table("subscriptions")
 H = {"Content-Type": "application/json"}
 def resp(code, obj):

@@ -1,10 +1,10 @@
-import json, html, urllib.request, urllib.error
+import os, json, html, urllib.request, urllib.error
 from datetime import datetime, timezone
 import boto3
 from boto3.dynamodb.conditions import Key
 # The ONE consumer of flight-status-queue. Routes on event_type: "welcome" (paid) or "cancel".
 UA = "Mozilla/5.0 (compatible; flight-notifier/1.0)"
-SITE = "https://fare-finder-ruddy.vercel.app/app"
+SITE = os.environ.get("SITE_URL", "https://fly.lluuoo.fyi") + "/app"
 CITY = {"TPE": "台北", "TYO": "東京", "SEL": "首爾", "LON": "倫敦"}
 _sm = boto3.client("secretsmanager")
 _hist = boto3.resource("dynamodb").Table("notification_history")
@@ -52,6 +52,8 @@ def render(m):
 def send_email(to, subj, html_body, text_body):
     s = resend_secret()
     body = {"from": s["from"], "to": [to], "subject": subj, "html": html_body, "text": text_body}
+    if s.get("reply_to"):
+        body["reply_to"] = s["reply_to"]
     req = urllib.request.Request("https://api.resend.com/emails", data=json.dumps(body).encode(), method="POST",
                                  headers={"Authorization": "Bearer " + s["api_key"],
                                           "Content-Type": "application/json", "User-Agent": UA})

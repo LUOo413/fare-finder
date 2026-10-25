@@ -1,7 +1,7 @@
 import base64, os, urllib.parse
 # OrderResultURL: ECPay sends the shopper's browser back with a POST, which a static SPA answers with 405.
 # This only redirects; activation happens in flight-ecpay-return.
-SITE = os.environ.get("SITE_URL", "https://fare-finder-ruddy.vercel.app")
+SITE = os.environ.get("SITE_URL", "https://fly.lluuoo.fyi")
 
 
 def handler(event, context):

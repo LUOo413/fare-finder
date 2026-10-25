@@ -91,6 +91,8 @@ def should_send(pk, new_price):
 def send_email(msg_to, subj, html_body, text_body):
     s = resend_secret()
     body = {"from": s["from"], "to": [msg_to], "subject": subj, "html": html_body, "text": text_body}
+    if s.get("reply_to"):
+        body["reply_to"] = s["reply_to"]
     req = urllib.request.Request("https://api.resend.com/emails", data=json.dumps(body).encode(), method="POST",
                                  headers={"Authorization": "Bearer " + s["api_key"],
                                           "Content-Type": "application/json", "User-Agent": UA})
